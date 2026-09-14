@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+blob-report/
+.vite/
+e2e/
+playwright.config.ts

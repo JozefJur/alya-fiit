@@ -1,0 +1,38 @@
+# Alya-FIIT — primary, officially supported way to run the project.
+#
+#   docker compose up --build -d          (or: python scripts/task.py up)
+#   docker compose exec backend python scripts/manage.py seed-small
+#
+# Frontend: http://localhost:5173   API docs: http://localhost:8000/docs
+
+services:
+  backend:
+    build: ./backend
+    container_name: alya-backend
+    environment:
+      # Absolute path inside the container; the volume below persists it.
+      ALYA_DATABASE_URL: sqlite:////app/data/dev.db
+      ALYA_JWT_SECRET: ${ALYA_JWT_SECRET:-dev-only-secret-not-for-production}
+      ALYA_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173"]'
+    volumes:
+      - alya-db:/app/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health').status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  frontend:
+    build: ./frontend
+    container_name: alya-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "5173:5173"
+
+volumes:
+  alya-db:

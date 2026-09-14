@@ -1,0 +1,280 @@
+/* Stylesheet for the generated course site (scripts/build_site.py).
+   It is inlined into every page, so the output stays self-contained. */
+:root {
+  color-scheme: light dark;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --text: #1b2230;
+  --muted: #5f6b7d;
+  --border: #dfe3ea;
+  --accent: #2456d6;
+  --accent-soft: #eaf0ff;
+  --ok: #157347;
+  --warn: #b45309;
+  --warn-soft: #fdf4e6;
+  --radius: 12px;
+  --nav-width: 264px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --surface: #181c24;
+    --surface-2: #1f242e;
+    --text: #e6e9ef;
+    --muted: #9aa4b5;
+    --border: #2b313d;
+    --accent: #7ea2ff;
+    --accent-soft: #1d2740;
+    --ok: #56c48c;
+    --warn: #e0a23c;
+    --warn-soft: #2a2318;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.layout { display: flex; min-height: 100vh; align-items: flex-start; }
+
+/* ---------------------------------------------------------------- sidebar */
+
+.sidebar {
+  width: var(--nav-width);
+  flex: 0 0 var(--nav-width);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 18px 40px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  display: block;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: 4px;
+}
+.brand span { color: var(--accent); }
+.brand-sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+
+.nav-group { margin-bottom: 22px; }
+.nav-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 0 0 8px 10px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14.5px;
+  line-height: 1.35;
+}
+.nav-link:hover { background: var(--surface-2); }
+.nav-link.current { background: var(--accent-soft); color: var(--accent); font-weight: 650; }
+
+.nav-badge {
+  flex: 0 0 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-link.current .nav-badge { background: var(--accent); color: #fff; }
+
+/* ---------------------------------------------------------------- content */
+
+.content { flex: 1 1 auto; min-width: 0; padding: 40px 44px 80px; }
+.page { max-width: 860px; margin: 0 auto; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+h1 { font-size: 34px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 20px; }
+h2 {
+  font-size: 23px;
+  letter-spacing: -0.01em;
+  margin: 42px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+h3 { font-size: 18.5px; margin: 28px 0 10px; }
+h4 { font-size: 16px; margin: 22px 0 8px; color: var(--muted); }
+
+p { margin: 0 0 16px; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+ul, ol { margin: 0 0 16px; padding-left: 24px; }
+li { margin-bottom: 6px; }
+li > ul, li > ol { margin-top: 6px; }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+strong { font-weight: 680; }
+
+/* tables */
+
+.table-wrap { overflow-x: auto; margin: 0 0 20px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+thead th {
+  background: var(--surface-2);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+
+/* code */
+
+code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 0 0 20px;
+  line-height: 1.55;
+}
+pre code { background: none; border: none; padding: 0; font-size: 14px; }
+
+/* callouts */
+
+blockquote {
+  margin: 0 0 20px;
+  padding: 12px 18px;
+  border-left: 3px solid var(--warn);
+  background: var(--warn-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text);
+}
+blockquote p:last-child { margin-bottom: 0; }
+
+/* cards on the index page */
+
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin: 0 0 28px; }
+.card {
+  display: block;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card-num { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; }
+.card-title { font-size: 17px; font-weight: 650; margin: 4px 0 6px; }
+.card-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* pager */
+
+.pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); }
+.pager a { display: inline-flex; flex-direction: column; gap: 2px; text-decoration: none; font-weight: 600; max-width: 48%; }
+.pager .dir { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.pager .next { text-align: right; margin-left: auto; }
+
+footer.site { margin-top: 40px; color: var(--muted); font-size: 13.5px; }
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 900px) {
+  /* align-items: flex-start is what lets the sidebar stick in row mode; in
+     column mode it would stop the content from filling the width. */
+  .layout { flex-direction: column; align-items: stretch; }
+  .sidebar {
+    position: static;
+    width: 100%;
+    flex: none;
+    height: auto;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 16px 12px;
+  }
+  .nav-group { margin-bottom: 14px; }
+  .sidebar { overflow-x: hidden; }
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-link { flex: 0 0 auto; white-space: nowrap; }
+  .content { padding: 28px 20px 60px; }
+  h1 { font-size: 28px; }
+}
+
+/* ------------------------------------------------------------------ print */
+
+@media print {
+  .sidebar, .pager { display: none; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .content { padding: 0; }
+  pre, table, blockquote { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  a { color: #000; text-decoration: underline; }
+}
