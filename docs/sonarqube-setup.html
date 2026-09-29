@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SonarQube – návod na spustenie</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #1f2328; }
+  h1 { font-size: 26px; margin-bottom: 28px; }
+  ol { padding-left: 22px; }
+  li { margin-bottom: 22px; }
+  pre { background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; padding: 12px 14px; overflow-x: auto; font-size: 13.5px; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; }
+  p code, li > code { background: #f6f8fa; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>SonarQube – návod na spustenie</h1>
+<ol>
+  <li>Spustite <strong>Docker Desktop</strong>.</li>
+
+  <li>Spustite SonarQube:
+<pre><code>docker run -d --name sonarqube-kpais -p 9000:9000 sonarqube:community</code></pre>
+  </li>
+
+  <li>Otvorte <a href="http://localhost:9000">http://localhost:9000</a> a prihláste sa menom <code>admin</code> a heslom <code>admin</code>. Nastavte si nové heslo.</li>
+
+  <li>Vpravo hore kliknite na ikonu používateľa → <strong>My Account</strong> → <strong>Security</strong>. Zadajte názov tokenu, kliknite <strong>Generate</strong> a token si skopírujte.</li>
+
+  <li>V koreňovom priečinku projektu vytvorte súbor <code>sonar-project.properties</code> s týmto obsahom:
+<pre><code>sonar.projectKey=alya-fiit
+sonar.projectName=Alya-FIIT
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+sonar.python.version=3.12
+
+sonar.exclusions=\
+  backend/.venv/**,\
+  backend/htmlcov/**,\
+  backend/data/**,\
+  backend/**/*.egg-info/**,\
+  frontend/node_modules/**,\
+  frontend/dist/**,\
+  site/**,\
+  **/__pycache__/**</code></pre>
+  </li>
+
+  <li>V koreňovom priečinku projektu spustite analýzu (namiesto <code>VAS_TOKEN</code> vložte token z kroku 4):
+<pre><code>docker run --rm -v "$(pwd):/usr/src" -e SONAR_HOST_URL=http://host.docker.internal:9000 -e SONAR_TOKEN=VAS_TOKEN sonarsource/sonar-scanner-cli</code></pre>
+  </li>
+
+  <li>Otvorte výsledky: <a href="http://localhost:9000/dashboard?id=alya-fiit">http://localhost:9000/dashboard?id=alya-fiit</a></li>
+</ol>
+</body>
+</html>
